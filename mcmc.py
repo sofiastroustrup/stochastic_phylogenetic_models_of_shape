@@ -425,6 +425,7 @@ for j in tqdm(range(N)):
     if j%20==0 or j==N-1:
         np.savetxt(outputpath+"kalphas.csv", kalphas, delimiter=",")
         np.savetxt(outputpath+"acceptkalpha.csv", acceptkalpha, delimiter=",")
+        np.savetxt(outputpath+"acceptgtheta.csv", acceptgtheta, delimiter=",")
         np.savetxt(outputpath+"acceptpath.csv", acceptpath, delimiter=",") # for plotting
         np.savetxt(outputpath+"tree_nodes.csv", trees.reshape(trees.shape[0],-1), delimiter=",") # use reshape(number of trees,59,40) to get back
         np.savetxt(outputpath+"tree_counter.csv", tree_counter, delimiter=",")
