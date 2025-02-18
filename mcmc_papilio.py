@@ -9,7 +9,7 @@ from tqdm import tqdm
 import pandas as pd
 import matplotlib.pyplot as plt
 import wandb
-import matplotlib
+import subprocess
 import seaborn as sns
 import argparse
 import scipy
@@ -156,10 +156,11 @@ if args.super_root == 'mean':
     super_root = np.mean(jnp.array(leaves), axis=1)
 elif args.super_root == 'phylomean':
     print('super_root: phylogenetic mean')
-    #_path = datapath + '/papilio_tree.nw'
-    #print(_path)
-    #subprocess.call('Rscript get_vcv.R ' + _path, shell=True)
-    vcv = np.genfromtxt(datapath + '/phylogeny_vcv.csv', delimiter=' ')
+    _path = datapath + '/papilio_tree'
+    print(_path)
+    subprocess.call('Rscript get_vcv.R ' + _path, shell=True)
+    vcv = np.genfromtxt(datapath + '/papilio_tree_vcv.csv', delimiter=' ')
+    leaves = jnp.array(leaves).T
     super_root = 1/(np.ones(leaves.shape[0]).T@np.linalg.inv(vcv)@np.ones(leaves.shape[0]))*np.ones(leaves.shape[0]).T@np.linalg.inv(vcv)@leaves # update this for more dynamic code
 else:
     print(f'super root: {args.super_root}')
@@ -169,14 +170,8 @@ print(f'Inference super root: {super_root}')
 print(f'kalpha start: {kalpha_cur}')
 print(f'gtheta start: {gtheta_cur}')
 
-#print(f'True root: {root}')
-#print(f'Inference super root: {super_root}')
-#print(f'kalpha start: {kalpha_cur}')
-#print(f'gtheta start: {gtheta_cur}')
 
 np.savetxt(outputpath+'inference_root_start.csv', super_root, delimiter=",")
-#np.savetxt(outputpath+'true_gtheta.csv', np.array([gtheta_sim]), delimiter=",")
-#np.savetxt(outputpath+'true_kalpha.csv', np.array([kalpha_sim]), delimiter=",")
 
 # backwards filter
 # set theta for inference
@@ -186,11 +181,6 @@ theta_cur = {
     'd':d,
     'n':n, 
 }
-
-
-# add specific parameters to root branch, work as long as we use
-# backward_filter_ and forward_guide_ = no inference on super root branch
-# backward_filter and forward_guide = inference on super root branch
 
 # backwards filter 
 data_tree_bf = backward_filter(bphylogeny, theta_cur, sigma)
