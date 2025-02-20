@@ -119,9 +119,6 @@ with open(treefile, 'r') as file:
 bphylogeny = Tree(treefile, format=1)
 
 # read data + metadata
-#leaves = np.genfromtxt(datapath + '/leaves.csv', delimiter=',')
-#gtheta_sim = np.genfromtxt(datapath + '/gtheta_sim.csv', delimiter=',')
-#kalpha_sim = np.genfromtxt(datapath + '/kalpha_sim.csv', delimiter=',')
 leaves = pd.read_csv(datapath+'/papilio_right_wing_downsampled.csv')#np.genfromtxt(datapath, delimiter=',')
 
 # prep tree inference tree
