@@ -3,3 +3,4 @@
 _*
 wandb/*
 .DS_Store
+.*
