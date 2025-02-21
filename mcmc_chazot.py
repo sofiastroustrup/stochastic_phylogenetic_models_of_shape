@@ -114,7 +114,7 @@ with open(treefile, 'r') as file:
 bphylogeny = Tree(treefile)
 
 # read data + metadata
-leaves = pd.read_csv(datapath + '/forewing_data.csv', delimiter=',')
+leaves = pd.read_csv(datapath + '/forewing_data_male.csv', delimiter=',')
 
 # prep tree inference tree
 bphylogeny.dist = length_root_branch # we need to add the super root branch length because it is not saved in the newick file... 

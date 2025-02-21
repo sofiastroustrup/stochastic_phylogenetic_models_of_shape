@@ -1,0 +1,14 @@
+# Do MCMC on papilio data from Michael
+# screen -ls | grep Detached | cut -d. -f1 | awk '{print $1}' | xargs kill
+
+
+Preprocessing status: current procrustes aligned by Michael. I have scaled it myself. 
+
+# v1
+screen -md -S papilio python mcmc_papilio.py -l=0.95 -dt=0.1 -ov=0.01 -datapath=papilio/data -o=papilio/runs_v1 -super_root=phylomean -sd_gt 0.02 -sd_ka 0.001 -pkalpha 0.001 0.2 -pgtheta 0.4 0.8 -N 3000 -wandb papilio
+
+# v2
+screen -md -S papilio python mcmc_papilio.py -l=0.99 -dt=0.1 -ov=0.001 -datapath=papilio/data -o=papilio/runs_v2 -super_root=phylomean -sd_gt 0.02 -sd_ka 0.001 -pkalpha 0.001 0.2 -pgtheta 0.2 1.3 -N 6000 -wandb papilio
+
+# v3
+screen -md -S papilio python mcmc_papilio.py -l=0.99 -dt=0.1 -ov=0.003 -datapath=papilio/data -o=papilio/runs_v3 -super_root=phylomean -sd_gt 0.02 -sd_ka 0.001 -pkalpha 0.001 0.2 -pgtheta 0.2 1.3 -N 6000 -wandb papilio

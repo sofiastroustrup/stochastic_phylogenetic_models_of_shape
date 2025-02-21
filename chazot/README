@@ -1,4 +1,6 @@
 Run analysis on Chazot data set 
+# screen -ls | grep Detached | cut -d. -f1 | awk '{print $1}' | xargs kill
+
 # diagnostics script 
 python diagnostics.py -folder_runs chazot/runs_rb=10_ov=0.5 -levelorder_tree chazot_full_tree_levelorder.nw -MCMC_iter 5000 -burnin 1500 -nxd 40 -nnodes 59
 
@@ -7,7 +9,7 @@ python diagnostics.py -folder_runs chazot/runs_rb=10_ov=0.5 -levelorder_tree cha
 mcmc_chazot.py -datapath chazot/data -o chazot/runs_rb=10 -l 0.95 -wandb chazot-data -super_root phylomean -sd_ka 0.003 -sd_gt 0.1 -pgtheta 0.7 0.6 -pkalpha 0.005 0.295 -N=5000 -rb 10
 
 #v2
-screen -md -S chazot python mcmc_chazot.py -datapath chazot/data -o chazot/runs_rb=10_v2 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.002 -sd_gt 0.09 -pgtheta 0.7 0.6 -pkalpha 0.005 0.095 -N=6000 -rb 10 -ov 0.001
+screen -md -S chazot python mcmc_chazot.py -datapath chazot/data -o chazot/runs_rb=10_v2 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.002 -sd_gt 0.09 -pgtheta 0.3 1.0 -pkalpha 0.005 0.095 -N=6000 -rb 10 -ov 0.001
 
 #v3
-screen -md -S chazot python mcmc_chazot.py -datapath chazot/data -o chazot/runs_rb=10_v3 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.002 -sd_gt 0.09 -pgtheta 0.7 0.6 -pkalpha 0.005 0.095 -N=6000 -rb 10 -ov 0.002
+screen -md -S chazot python mcmc_chazot.py -datapath chazot/data -o chazot/runs_rb=10_v3 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.002 -sd_gt 0.09 -pgtheta 0.3 1.0 -pkalpha 0.005 0.095 -N=6000 -rb 10 -ov 0.002
