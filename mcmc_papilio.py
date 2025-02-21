@@ -114,8 +114,8 @@ else:
 
 # READ IN DATA (RIGHT NOW SETUP FOR SIMULATED DATA)
 treefile = datapath+ '/'+'papilio_tree.nw'
-with open(treefile, 'r') as file: 
-        newick_tree = file.read()
+#with open(treefile, 'r') as file: 
+#        newick_tree = file.read()
 bphylogeny = Tree(treefile, format=1)
 
 # read data + metadata
