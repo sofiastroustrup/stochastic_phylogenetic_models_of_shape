@@ -29,7 +29,6 @@ parser.add_argument('-ms', help = 'seed for MCMC', nargs='?', type = int, defaul
 
 parser.add_argument('-datapath', help='path to data i.e. observations at leaves', nargs='?', default = 'simdata/leaves.csv', type=str )
 parser.add_argument('-treepath', help='path to phylogeny', nargs='?', default = 'simdata/phylogeny.nw', type=str )
-
 parser.add_argument('-nxd', help='number of landmarks and dimension of landmarks', nargs=2, default = [20, 2], type=int )
 parser.add_argument('-wandb', help='wandb project', nargs='?', default = '', type=str )
 parser.add_argument('-sd_gt', help='proposal sd gtheta', nargs='?', default=0.02, type=float)
@@ -163,10 +162,6 @@ print(f'Inference super root: {super_root}')
 print(f'kalpha start: {kalpha_cur}')
 print(f'gtheta start: {gtheta_cur}')
 
-#print(f'True root: {root}')
-#print(f'Inference super root: {super_root}')
-#print(f'kalpha start: {kalpha_cur}')
-#print(f'gtheta start: {gtheta_cur}')
 
 np.savetxt(outputpath+'inference_root_start.csv', super_root, delimiter=",")
 
@@ -178,11 +173,6 @@ theta_cur = {
     'd':d,
     'n':n, 
 }
-
-
-# add specific parameters to root branch, work as long as we use
-# backward_filter_ and forward_guide_ = no inference on super root branch
-# backward_filter and forward_guide = inference on super root branch
 
 # backwards filter 
 data_tree_bf = backward_filter(bphylogeny, theta_cur, sigma)
@@ -252,10 +242,7 @@ for j in tqdm(range(N)):
     logpsicirc = get_logpsi(guidedcirc)
     
     # calculate acceptance probability
-    #print(f'path logpsicirc: {logpsicirc}')
-    #print(f'path logpsicur: {logpsicur}')
     log_r = logpsicirc - logpsicur
-    #print(f'path log_r: {log_r}')
     A = min(1, np.exp(log_r))
     print(f'path acceptance probability {A}')
 
@@ -292,12 +279,7 @@ for j in tqdm(range(N)):
     
     # propose parameter, proposal is mirrored gaussian with sd
     key, subkey = jax.random.split(key, 2)
-    gthetacirc = mirrored_gaussian(subkey, gtheta_cur, proposal_sd_gtheta, 0, 10) #folded_gaussian(subkey, gtheta_cur, proposal_sd_gtheta)  # I have tested the folded gaussian.... 
-    #print(f'gthetacirc: {gthetacirc}')
-    #print(f'gthetacur: {gtheta_cur}')
-    #q_gtcirc_gt = folded_gaussian_logpdf(gthetacirc, gtheta_cur, proposal_sd_gtheta)
-    #q_gt_gtcirc = folded_gaussian_logpdf(gtheta_cur, gthetacirc, proposal_sd_gtheta)
-    #print(q_gt_gtcirc==q_gtcirc_gt)
+    gthetacirc = mirrored_gaussian(subkey, gtheta_cur, proposal_sd_gtheta, 0, 10)  
     thetacirc = theta_cur.copy()
     thetacirc['inv_k_sigma']= 1./(gthetacirc)*jnp.eye(d) # update kernel width
 
@@ -352,12 +334,7 @@ for j in tqdm(range(N)):
     #######################
     # propose parameter, proposal is mirrored gaussian with sd
     key, subkey = jax.random.split(key, 2)
-    kalphacirc = mirrored_gaussian(subkey, kalpha_cur, proposal_sd_kalpha, 0, 10) #folded_gaussian(subkey, kalpha_cur, proposal_sd_kalpha)  
-    #print(f'kalphacirci: {kalphacirc}')
-    #q_kacirc_ka = folded_gaussian_logpdf(kalphacirc, kalpha_cur, proposal_sd_kalpha)
-    #q_ka_kacirc = folded_gaussian_logpdf(kalpha_cur, kalphacirc, proposal_sd_kalpha)
-    #print(q_kacirc_ka==q_ka_kacirc)
-    thetacirc = theta_cur.copy()
+    kalphacirc = mirrored_gaussian(subkey, kalpha_cur, proposal_sd_kalpha, 0, 10) 
     thetacirc['k_alpha']= kalphacirc # propose rate 
 
     # do backwards filter using new parameter
