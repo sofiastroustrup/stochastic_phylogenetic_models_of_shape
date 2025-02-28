@@ -20,8 +20,18 @@ screen -md -S chazot-v4 python mcmc_chazot.py -datapath chazot/data -o chazot/ru
 #v5, like v2 but with lr=5 and N=10.000
 screen -md -S chazot-v5 python mcmc_chazot.py -datapath chazot/data -o chazot/runs_rb=5_v5 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.002 -sd_gt 0.09 -pgtheta 0.3 1.0 -pkalpha 0.005 0.095 -N=10000 -rb 5 -ov 0.001
 
+# v6, like v4 but wider prior on sigma 
+screen -md -S chazot-v6 python mcmc_chazot.py -datapath chazot/data -o chazot/runs_rb=5_v6 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.0015 -sd_gt 0.1 -pgtheta 0.0 1.5 -pkalpha 0.0 0.01 -N=10000 -rb 5 -ov 0.001
 
 
-##### RUN on all landmarks #####
+##### RUN on all/more landmarks forewing #####
 #v0 male data 
 screen -md -S chazot-alln-v0 python mcmc_chazot_final.py -datapath chazot/data/forewing_data_male_n=88.csv -treepath chazot/data/chazot_full_tree.nw -o chazot/runs_alln_v0 -nxd 44 2 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.0015 -sd_gt 0.1 -pgtheta 0.3 1.0 -pkalpha 0.0 0.01 -N=10000 -rb 5 -ov 0.001
+
+#v1
+screen -md -S chazot-alln-v1 python mcmc_chazot_final.py -datapath chazot/data/forewing_data_male_n=88.csv -treepath chazot/data/chazot_full_tree.nw -o chazot/runs_alln_v1 -nxd 44 2 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.001 -sd_gt 0.1 -pgtheta 0 1.5 -pkalpha 0.0 0.01 -N=10000 -rb 5 -ov 0.001
+
+
+#### RUN all/more landmarks hindwing #### 
+#v1hw
+screen -md -S chazot-alln-v0-hw python mcmc_chazot_final.py -datapath chazot/data/hindwing_data_male_n=29_veins.csv -treepath chazot/data/chazot_full_tree.nw -o chazot/runs_alln_v0hw -nxd 29 2 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.001 -sd_gt 0.1 -pgtheta 0 1.5 -pkalpha 0.0 0.01 -N=10000 -rb 5 -ov 0.001
