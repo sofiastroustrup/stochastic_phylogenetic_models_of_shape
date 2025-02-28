@@ -67,7 +67,7 @@ def plot_posterior(flat_trees, inneridx, outpath, flat_true_tree=False, sample_n
     grid_size = int(np.ceil(np.sqrt(n_nodes)))
     # Create subplots
     fig, axes = plt.subplots(grid_size, grid_size, figsize=(20, 20), sharex=True, sharey=True)
-    fig.suptitle(f'Samples from posterior (every {sample_n}) for all innernodes', size=20)
+    #fig.suptitle(f'Samples from posterior (every {sample_n}) for all innernodes', size=20)
     # Flatten the axes array for easy iteration
     axes = axes.flatten()
 
@@ -75,7 +75,7 @@ def plot_posterior(flat_trees, inneridx, outpath, flat_true_tree=False, sample_n
     for i in range(n_nodes):
         idx = inneridx[i]
         innernodes = flat_trees[:,:,idx,:].reshape(-1, nxd)[::sample_n,:]
-        inode = np.append(innernodes, innernodes[:,0:2],1)
+        inode = innernodes #np.append(innernodes, innernodes[:,0:2],1)
         for j in range(inode.shape[0]):
             axes[i].plot(inode[j,::2], inode[j,1::2], '--.', color='steelblue', alpha=0.3)
         if flat_true_tree is not False:
@@ -89,8 +89,8 @@ def plot_posterior(flat_trees, inneridx, outpath, flat_true_tree=False, sample_n
         fig.delaxes(axes[j])
 
     plt.tight_layout()
-    plt.savefig(outpath)
-    fig.subplots_adjust(top=0.95)
+    plt.savefig(outpath, bbox_inches='tight')
+    #fig.subplots_adjust(top=0.95)
     plt.show()
     plt.close()
     gc.collect()
