@@ -162,7 +162,7 @@ if args.super_root == 'mean':
     super_root = np.mean(leaves, axis=0)
 elif args.super_root == 'phylomean':
     print('super_root: phylogenetic mean')
-    _path = datapath + '/phylogeny'
+    #_path = datapath + '/phylogeny'
     #print(_path)
     #subprocess.call('Rscript get_vcv.R ' + _path, shell=True)
     vcv = np.genfromtxt(datapath + '/phylogeny_vcv.csv', delimiter=' ')
