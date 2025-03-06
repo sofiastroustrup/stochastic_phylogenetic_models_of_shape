@@ -34,6 +34,10 @@ screen -md -S chazot-alln-v1 python mcmc_chazot_final.py -datapath chazot/data/f
 # v2fw 
 screen -md -S chazot-alln-v2-fw python mcmc_chazot_final.py -datapath chazot/data/forewing_data_male_n=88.csv -treepath chazot/data/chazot_full_tree.nw -o chazot/runs_alln_v2fw -nxd 44 2 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.0001 -sd_gt 0.1 -pgtheta 0 1.5 -pkalpha 0.0 0.05 -N=10000 -rb 5 -ov 0.001
 
+# v3fw 
+screen -md -S chazot-alln-v3-fw python mcmc_chazot_final.py -datapath chazot/data/forewing_data_male_n=88.csv -treepath chazot/data/chazot_full_tree.nw -o chazot/runs_alln_v3fw -nxd 44 2 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.0001 -sd_gt 0.1 -pgtheta 0 1.5 -pkalpha 0.0 0.01 -N=10000 -rb 5 -ov 0.001
+
+
 
 #### RUN all/more landmarks hindwing #### 
 #v1hw
@@ -41,3 +45,6 @@ screen -md -S chazot-alln-v0-hw python mcmc_chazot_final.py -datapath chazot/dat
 
 #v2hw
 screen -md -S chazot-alln-v2-hw python mcmc_chazot_final.py -datapath chazot/data/hindwing_data_male_n=29_veins.csv -treepath chazot/data/chazot_full_tree.nw -o chazot/runs_alln_v2hw -nxd 29 2 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.0001 -sd_gt 0.1 -pgtheta 0 1.5 -pkalpha 0.0 0.05 -N=10000 -rb 5 -ov 0.001
+
+#v3hw
+screen -md -S chazot-alln-v3-hw python mcmc_chazot_final.py -datapath chazot/data/hindwing_data_male_n=29_veins.csv -treepath chazot/data/chazot_full_tree.nw -o chazot/runs_alln_v3hw -nxd 29 2 -l 0.99 -wandb chazot-data -super_root phylomean -sd_ka 0.0001 -sd_gt 0.1 -pgtheta 0 1.5 -pkalpha 0.0 0.01 -N=10000 -rb 5 -ov 0.001

@@ -97,14 +97,26 @@ else:
 
 #load tree from file 
 bphylogeny_sim = Tree(simtree)
-levelorder_tree = Tree('levelorder_'+simtree)
+#levelorder_tree = Tree('levelorder_'+simtree)
 #bphylogeny_sim = bphylogeny.copy() 
-
-# get idx for leaves
 leafidx = []
-for leaf in levelorder_tree:
-    leafidx.append(int(leaf.name))
+inneridx = []
+i = 0
+for node in bphylogeny_sim.traverse('levelorder'):
+    if node.is_leaf():
+        print(node.name)
+        leafidx.append(i)
+    else:
+        inneridx.append(i)
+    i+=1
 print(leafidx)
+print(inneridx)
+#nnodes = len(leafidx) + len(inneridx)   
+# get idx for leaves
+#leafidx = []
+#for leaf in levelorder_tree:
+#    leafidx.append(int(leaf.name))
+#print(leafidx)
 
 # prep tree simulation tree
 #bphylogeny_sim.dist = rb # set super root branch length
