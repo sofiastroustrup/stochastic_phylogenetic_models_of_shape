@@ -5,11 +5,12 @@ import seaborn as sns
 import arviz as az
 import gc
 
-def plot_traces_tree(flat_trees, inneridx, ess, rhats, true_innernode= False, outpath = 'traces.pdf'): 
+def plot_traces_tree(flat_trees, inneridx, ess, rhats, flat_true_tree, true_innernode= False, outpath = 'traces.pdf'): 
     colors = sns.color_palette('pastel', flat_trees.shape[0])
     pdf = backend_pdf.PdfPages(outpath)
     plt.figure(1)
     for idx in inneridx: # loop over innernodes
+        print(idx)
         fig, axes = plt.subplots(nrows=7, ncols=6, figsize=(25,15), sharex=True)
         for j in range(flat_trees.shape[0]): # loop over chains
             innernode = flat_trees[j,:,idx, :]
@@ -55,7 +56,7 @@ def summary_rhat(rhats, inneridx, outpath):
     plt.tight_layout()
     plt.savefig(outpath)
     fig.subplots_adjust(top=0.95)
-    plt.show()
+    #plt.show()
     plt.close()
     gc.collect()
 
@@ -91,7 +92,7 @@ def plot_posterior(flat_trees, inneridx, outpath, flat_true_tree=False, sample_n
     plt.tight_layout()
     plt.savefig(outpath, bbox_inches='tight')
     #fig.subplots_adjust(top=0.95)
-    plt.show()
+    #plt.show()
     plt.close()
     gc.collect()
 
@@ -124,7 +125,7 @@ def plot_leaves(flat_true_tree, leafidx, outpath):
     plt.tight_layout()
     plt.savefig(outpath)
     fig.subplots_adjust(top=0.95)
-    plt.show()
+    #plt.show()
     plt.close()
     gc.collect()
 

@@ -166,7 +166,7 @@ elif args.super_root == 'phylomean':
     #print(_path)
     #subprocess.call('Rscript get_vcv.R ' + _path, shell=True)
     vcv = np.genfromtxt(datapath + '/phylogeny_vcv.csv', delimiter=' ')
-    super_root = 1/(np.ones(leaves.shape[0]).T@np.linalg.inv(vcv)@np.ones(leaves.shape[0]))*np.ones(leaves.shape[0]).T@np.linalg.inv(vcv)@leaves # update this for more dynamic code
+    super_root = 1/(np.ones(leaves.shape[0]).T@np.linalg.inv(vcv)@np.ones(leaves.shape[0]))*np.ones(leaves.shape[0]).T@np.linalg.inv(vcv)@leaves 
 else:
     print(f'super root: {args.super_root}')
     super_root = np.genfromtxt(args.super_root, delimiter=',')
