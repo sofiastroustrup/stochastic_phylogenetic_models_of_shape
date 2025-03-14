@@ -10,7 +10,7 @@ ggtree(tree, layout='rectangular') +
   geom_nodelab(hjust=-0.1) +
   geom_nodelab(aes(node=1, label=0), hjust=-0.2)+
   geom_rootedge(rootedge=1) + 
-  geom_nodepoint(color="black", alpha=1, size=1)+
+  geom_nodepoint(color="black", alpha=1, size=1)
   
 
 
